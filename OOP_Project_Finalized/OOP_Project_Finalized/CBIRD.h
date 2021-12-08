@@ -9,6 +9,7 @@ public:
 	CBIRD(int, int, bool);
 
 	int get_type();
+	void sound();
 };
 
 #endif // !_CBIRD_H_

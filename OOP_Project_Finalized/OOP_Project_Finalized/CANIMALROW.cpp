@@ -142,11 +142,19 @@ bool CANIMALROW::is_collide(int playerXcoor, int playerYcoor)
 		{
 			if (this->animalList[i]->get_Xcoor() > playerXcoor)
 			{
-				if (playerXcoor + PLAYER_WIDTH >= this->animalList[i]->get_Xcoor()) return 1;
+				if (playerXcoor + PLAYER_WIDTH >= this->animalList[i]->get_Xcoor())
+				{
+					this->animalList[i]->sound();
+					return 1;
+				}
 			}
 			else
 			{
-				if (this->animalList[i]->get_Xcoor() + ANIMAL_WIDTH >= playerXcoor) return 1;
+				if (this->animalList[i]->get_Xcoor() + ANIMAL_WIDTH >= playerXcoor)
+				{
+					this->animalList[i]->sound();
+					return 1;
+				}
 			}
 		}
 	}
@@ -214,3 +222,13 @@ void CANIMALROW::save_row(std::ofstream& ofs)
 	}
 }
 
+void CANIMALROW::draw()
+{
+	for (int i = 0; i < this->enemyNumber; i++)
+	{
+		if (this->enemyState[i])
+		{
+			this->animalList[i]->draw();
+		}
+	}
+}

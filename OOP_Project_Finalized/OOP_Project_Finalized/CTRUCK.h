@@ -9,6 +9,7 @@ public:
 	CTRUCK(int, int, bool);
 
 	int get_type();
+	void sound();
 };
 
 #endif // !_CTRUCK_H_

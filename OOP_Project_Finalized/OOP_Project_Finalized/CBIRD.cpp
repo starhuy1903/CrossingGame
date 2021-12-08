@@ -1,4 +1,5 @@
 #include "CBIRD.h"
+#include <Windows.h>
 
 CBIRD::CBIRD(int Xcoor, int Ycoor, bool direction /* 0 for left, 1 for right*/)
 {
@@ -65,4 +66,9 @@ CBIRD::CBIRD(int Xcoor, int Ycoor, bool direction /* 0 for left, 1 for right*/)
 int CBIRD::get_type()
 {
 	return ANIMAL_TYPE_BIRD;
+}
+
+void CBIRD::sound()
+{
+	PlaySound(TEXT("./sound/Bird.WAV"), NULL, SND_ASYNC);
 }

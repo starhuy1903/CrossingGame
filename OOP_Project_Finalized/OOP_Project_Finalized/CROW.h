@@ -28,6 +28,8 @@ public:
 
 	virtual void save_row(std::ofstream&) = 0;
 
+	virtual void draw() = 0;
+
 	
 protected:
 	int Ycoor;

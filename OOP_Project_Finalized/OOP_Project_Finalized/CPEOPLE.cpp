@@ -41,7 +41,7 @@ void CPEOPLE::set_state(bool state)
 // --------------------> Draw object
 void CPEOPLE::draw()
 {
-	if (this->justMove)
+	//if (this->justMove)
 	{
 		gotoXY(this->Xcoor, this->Ycoor);		std::cout << "  O  ";
 		gotoXY(this->Xcoor, this->Ycoor + 1);	std::cout << "/(_)\\";

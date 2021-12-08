@@ -1,4 +1,5 @@
 #include "CCAR.h"
+#include <Windows.h>
 
 // --------------------> Constructor 
 
@@ -65,4 +66,9 @@ CCAR::CCAR(int Xcoor, int Ycoor, bool direction /* 0 for left, 1 for right*/)
 int CCAR::get_type()
 {
 	return VEHICLE_TYPE_CAR;
+}
+
+void CCAR::sound()
+{
+	PlaySound(TEXT("./sound/Car.WAV"), NULL, SND_ASYNC);
 }

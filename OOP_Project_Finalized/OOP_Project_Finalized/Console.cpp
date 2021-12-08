@@ -27,6 +27,14 @@ void resizeWindow(int width, int height)
 	MoveWindow(console, r.left, r.top, width, height, TRUE);
 }
 
+void setWindowPosition(int x, int y)
+{
+	HWND consoleWindow = GetConsoleWindow();
+
+	SetWindowPos(consoleWindow, 0, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+
+}
+
 void showConsoleCursor(bool showFlag)
 {
 	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -89,7 +97,7 @@ int inputKey()
 
 		switch (temp)
 		{
-		case 'W':case 'A':case 'S':case 'D':case 'P':
+		case 'W':case 'A':case 'S':case 'D':case 'P':case 'T':case 'L':case 13:
 			return temp;
 			break;
 		default:

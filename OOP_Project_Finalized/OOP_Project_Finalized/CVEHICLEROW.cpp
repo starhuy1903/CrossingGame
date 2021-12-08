@@ -149,11 +149,19 @@ bool CVEHICLEROW::is_collide(int playerXcoor, int playerYcoor)
 		{
 			if (this->vehicleList[i]->get_Xcoor() > playerXcoor)
 			{
-				if (playerXcoor + PLAYER_WIDTH >= this->vehicleList[i]->get_Xcoor()) return 1;
+				if (playerXcoor + PLAYER_WIDTH >= this->vehicleList[i]->get_Xcoor())
+				{
+					this->vehicleList[i]->sound();
+					return 1;
+				}
 			}
 			else
 			{
-				if (this->vehicleList[i]->get_Xcoor() + VEHICLE_WIDTH >= playerXcoor) return 1;
+				if (this->vehicleList[i]->get_Xcoor() + VEHICLE_WIDTH >= playerXcoor)
+				{
+					this->vehicleList[i]->sound();
+					return 1;
+				}
 			}
 		}
 	}
@@ -259,3 +267,14 @@ void CVEHICLEROW::change_light()
 	}
 }
 
+void CVEHICLEROW::draw()
+{
+	for (int i = 0; i < this->enemyNumber; i++)
+	{
+		if (this->enemyState[i])
+		{
+			this->vehicleList[i]->draw();
+		}
+	}
+	this->draw_traffic_light(this->trafficLight);
+}

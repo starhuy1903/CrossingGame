@@ -5,7 +5,7 @@
 #define PLAYER_HEIGHT 3
 #define STARTING_XCOOR 51
 #define STARTING_YCOOR 37
-#define X_AXIS_DELTA 5
+#define X_AXIS_DELTA 3
 #define Y_AXIS_DELTA 3
 
 class CPEOPLE

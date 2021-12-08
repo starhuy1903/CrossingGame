@@ -11,6 +11,8 @@ void fixConsoleWindow();
 
 void resizeWindow(int, int);
 
+void setWindowPosition(int,int);
+
 void showConsoleCursor(bool);
 
 void setColor(int);

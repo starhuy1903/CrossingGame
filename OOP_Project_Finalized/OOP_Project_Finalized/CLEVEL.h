@@ -31,6 +31,8 @@ public:
 
 	void save_level(std::ofstream&);
 
+	void draw();
+
 private:
 	CPEOPLE player;
 	CROW** rows; // const = 10

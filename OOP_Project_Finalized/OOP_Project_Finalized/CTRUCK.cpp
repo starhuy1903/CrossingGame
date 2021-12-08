@@ -1,4 +1,5 @@
 #include "CTRUCK.h"
+#include <Windows.h>
 
 // --------------------> Constructor 
 
@@ -66,4 +67,9 @@ CTRUCK::CTRUCK(int Xcoor, int Ycoor, bool direction /* 0 for left, 1 for right*/
 int CTRUCK::get_type()
 {
 	return VEHICLE_TYPE_TRUCK;
+}
+
+void CTRUCK::sound()
+{
+	PlaySound(TEXT("./sound/TRUCK.WAV"), NULL, SND_ASYNC);
 }

@@ -1,4 +1,5 @@
 #include "CDINAUSOR.h"
+#include <Windows.h>
 
 //--------------------> Constructor 
 
@@ -75,4 +76,9 @@ CDINAUSOR::CDINAUSOR(int Xcoor, int Ycoor, bool direction /* 0 for left, 1 for r
 int CDINAUSOR::get_type()
 {
 	return ANIMAL_TYPE_DINAUSOR;
+}
+
+void CDINAUSOR::sound()
+{
+	PlaySound(TEXT("./sound/Dino.WAV"), NULL, SND_ASYNC);
 }

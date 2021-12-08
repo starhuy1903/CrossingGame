@@ -40,37 +40,57 @@ CLEVEL::CLEVEL(unsigned int level_label)
 
 	this->rows = new CROW * [ROWS_NUMBER];
 
+	int line = LAST_LINE;
 	int min_distance, max_distance;
 	int min_delay, max_delay;
-	int min_count, max_count;
-	int line = LAST_LINE;
+	int min_amount, max_amount;
+	
 
 	switch (level_label)
 	{
+	case 1:case 2:case 3:
+	{
+		min_distance = 12; max_distance = min_distance + 35 - level_label * 5;
+		min_delay = 10; max_delay = min_delay + 24 - level_label * 2;
+		min_amount = 3; max_amount = min_amount + 4 + level_label;
+		break;
+	}
+	case 4:case 5:case 6:
+	{
+		min_distance = 12 - level_label - 3; max_distance = 20;
+		min_delay = 10 - level_label - 3; max_delay = 18;
+		min_amount = 3 + level_label - 3; max_amount = 8;
+		break;
+	}
+
 	default:
-		min_distance = 7; max_distance = 20;
+	{
+		min_distance = 7; max_distance = 15;
 		min_delay = 3; max_delay = 7;
-		min_count = 7; max_count = 10;
+		min_amount = 7; max_amount = 10;
+		break;
+	}
+	}
 
-		for (int i = 0; i < ROWS_NUMBER; i++)
+	for (int i = 0; i < ROWS_NUMBER; i++)
+	{
+		bool isAnimal = (rand() % 2 == 0);
+		bool isLeft = (rand() % 2 == 0);
+
+		int distance = rand() % max_distance; distance = (distance < min_distance) ? distance + min_distance : distance;
+		int delay = rand() % max_delay; delay = (delay < min_delay) ? delay + min_delay : delay;
+		int amount = rand() % max_amount; amount = (amount < min_amount) ? amount + min_amount : amount;
+
+		if (isAnimal)
 		{
-			bool isAnimal = (rand() % 2 == 0);
-			bool isLeft = (rand() % 2 == 0);
-			int distance = rand() % max_distance + min_distance; distance = (distance > max_distance) ? max_distance : distance;
-			int delay = rand() % max_delay + min_delay; delay = (delay > max_delay) ? max_delay : delay;
-			int count = rand() % max_count + min_count; count = (count > max_count) ? max_count : count;
-
-			if (isAnimal)
-			{
-				this->rows[i] = new CANIMALROW(line, isLeft, distance, delay, count);
-			}
-			else
-			{
-				this->rows[i] = new CVEHICLEROW(line, isLeft, distance, delay, count);
-			}
-
-			line += 3;
+			this->rows[i] = new CANIMALROW(line, isLeft, distance, delay, amount);
 		}
+		else
+		{
+			this->rows[i] = new CVEHICLEROW(line, isLeft, distance, delay, amount);
+		}
+
+		line += 3;
 	}
 }
 
@@ -113,10 +133,8 @@ void CLEVEL::play()
 {
 	this->state = "RUNNING";
 
-	while (1)
+	while ((this->state == "RUNNING"))
 	{
-		if (this->state != "RUNNING") continue;
-
 		Sleep(10);
 		
 		for (int i = 0; i < ROWS_NUMBER; i++)
@@ -167,5 +185,13 @@ void CLEVEL::save_level(std::ofstream& ofs)
 
 		this->rows[i]->save_row(ofs);
 	}
+}
 
+void CLEVEL::draw()
+{
+	this->player.draw();
+	for (int i = 0; i < ROWS_NUMBER; i++)
+	{
+		this->rows[i]->draw();
+	}
 }

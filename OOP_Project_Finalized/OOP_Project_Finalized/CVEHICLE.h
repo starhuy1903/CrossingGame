@@ -17,7 +17,7 @@ public:
 	int get_Ycoor();
 
 	void move(int, int);
-	//virtual void sound();
+	virtual void sound() = 0;
 
 	virtual int get_type() = 0;
 

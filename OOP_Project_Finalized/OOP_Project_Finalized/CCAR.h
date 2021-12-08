@@ -9,6 +9,7 @@ public:
 	CCAR(int, int, bool);
 
 	int get_type();
+	void sound();
 };
 
 #endif // !_CCAR_H_

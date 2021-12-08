@@ -9,6 +9,7 @@ public:
 	CDINAUSOR(int, int, bool);
 
 	int get_type();
+	void sound();
 };
 
 #endif // !_CDINAUSOR_H_

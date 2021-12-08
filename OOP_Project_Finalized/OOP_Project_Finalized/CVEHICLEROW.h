@@ -36,6 +36,8 @@ public:
 
 	void save_row(std::ofstream&);
 
+	void draw();
+
 private:
 	CVEHICLE** vehicleList;
 
