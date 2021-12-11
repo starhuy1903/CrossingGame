@@ -97,7 +97,7 @@ int inputKey()
 
 		switch (temp)
 		{
-		case 'W':case 'A':case 'S':case 'D':case 'P':case 'T':case 'L':case 13:
+		case 'W':case 'A':case 'S':case 'D':case 'P':case 'T':case 'L':case 13:case 27:
 			return temp;
 			break;
 		default:

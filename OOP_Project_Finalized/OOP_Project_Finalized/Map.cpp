@@ -124,6 +124,7 @@ void draw_outline()
 
 void draw_game_guide(int level)
 {
+	gotoXY(105, 1); std::cout << "<<<< Crossing Road Game >>>>";
 	gotoXY(105, 3); std::cout << "Lv. " << level << std::endl;
 	gotoXY(105, 5); std::cout << "CONTROL" << std::endl;
 	gotoXY(105, 6); std::cout << "[ W ]: UP" << std::endl;

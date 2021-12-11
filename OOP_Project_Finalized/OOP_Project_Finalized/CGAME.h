@@ -3,6 +3,8 @@
 
 #include "CLEVEL.h"
 
+#define DEFAULT_BACKGROUND_MUSIC_STATE 1
+
 class CGAME
 {
 public:
@@ -24,6 +26,7 @@ public:
 	void reset_menu_choice();
 
 	void level_up();
+	void restart();
 
 	void update_player(char);
 
@@ -33,12 +36,17 @@ public:
 	void load_menu();
 	void lose_menu();
 	void win_menu();
+	void setting_menu();
 	void pause();
-	bool yes_no_form(int, int);
+	//bool yes_no_form(int, int);
+
+	void turn_background_music(int);
 
 private:
 	char menu_choice;
 	std::string pre_state;
+
+	bool background_music;
 
 	std::string main_state;
 	int level_label;

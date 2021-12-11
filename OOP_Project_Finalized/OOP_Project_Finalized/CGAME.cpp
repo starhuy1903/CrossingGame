@@ -1,5 +1,6 @@
 #include "CGAME.h"
 #include <iostream>
+#include <Windows.h>
 
 //--------------------> Constructor 
 
@@ -9,7 +10,8 @@ CGAME::CGAME()
 	this->main_state = "MAINMENU";
 	this->current_level = new CLEVEL(this->level_label);
 	this->menu_choice = '\0';
-	pre_state = "MAINMENU";
+	this->pre_state = "MAINMENU";
+	this->background_music = DEFAULT_BACKGROUND_MUSIC_STATE;
 }
 
 //--------------------> Destructor
@@ -25,6 +27,9 @@ void CGAME::gameplay()
 	clearScreen();
 	draw_outline();
 	draw_game_guide(this->level_label);
+
+	if(this->background_music) this->turn_background_music(2);
+
 	this->current_level->draw();
 	this->current_level->play();
 	if (this->current_level->get_state() == "WIN")
@@ -34,9 +39,7 @@ void CGAME::gameplay()
 	}
 	if (this->current_level->get_state() == "LOSE")
 	{
-		delete this->current_level;
-		this->level_label = 1;
-		this->current_level = new CLEVEL(this->level_label);
+		this->restart();
 		this->main_state = "LOSE";
 	}
 
@@ -46,8 +49,11 @@ void CGAME::main_menu()
 {
 	clearScreen();
 	draw_outline();
+
+	if (this->background_music) this->turn_background_music(1);
+
 	int temp = 1;
-	std::string text[4] = { "New game","Load game","Exit","Setting" };
+	std::string text[4] = { "New game","Load game","Setting","Exit", };
 
 	int choice = 0;
 
@@ -59,7 +65,7 @@ void CGAME::main_menu()
 		if (temp == 8) temp = 1;
 		else temp++;
 
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			if (choice == i)
 			{
@@ -82,7 +88,7 @@ void CGAME::main_menu()
 			}
 			if (this->menu_choice == 'S')
 			{
-				if (choice < 2) choice++;
+				if (choice < 3) choice++;
 				this->reset_menu_choice();
 			}
 			if (this->menu_choice == 13)
@@ -98,6 +104,9 @@ void CGAME::main_menu()
 					this->main_state = "LOADING";
 					break;
 				case 2:
+					this->main_state = "SETTING";
+					break;
+				case 3:
 					this->main_state = "EXIT";
 					break;
 				}
@@ -110,6 +119,7 @@ void CGAME::save_menu()
 {
 	clearScreen();
 	draw_outline();
+	this->turn_background_music(0);
 	std::string text[12] = {"Select slot to save:","Save_slot_1","Save_slot_2" ,"Save_slot_3" ,"Save_slot_4" ,"Save_slot_5" ,"Save_slot_6" ,"Save_slot_7" ,"Save_slot_8" ,"Save_slot_9" ,"Save_slot_10" ,"Return"};
 
 	int choice = 1;
@@ -168,6 +178,7 @@ void CGAME::load_menu()
 {
 	clearScreen();
 	draw_outline();
+	this->turn_background_music(0);
 	std::string text[12] = { "Select slot to load:","Save_slot_1","Save_slot_2" ,"Save_slot_3" ,"Save_slot_4" ,"Save_slot_5" ,"Save_slot_6" ,"Save_slot_7" ,"Save_slot_8" ,"Save_slot_9" ,"Save_slot_10" ,"Return" };
 
 	int choice = 1;
@@ -245,7 +256,7 @@ void CGAME::win_menu()
 {
 	clearScreen();
 	draw_outline();
-	std::string text[4] = { "Continue", "Save game", "Load game","Exit" };
+	std::string text[5] = { "Continue", "Save game", "Load game", "Main menu", "Exit" };
 
 	int choice = 0;
 
@@ -253,7 +264,7 @@ void CGAME::win_menu()
 
 	while (this->main_state == "WIN")
 	{
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			if (choice == i)
 			{
@@ -264,6 +275,73 @@ void CGAME::win_menu()
 			else
 			{
 				gotoXY(20, 23 + i); std::cout << text[i];
+			}
+		}
+
+		if (this->menu_choice != '\0')
+		{
+			if (this->menu_choice == 'W')
+			{
+				if (choice > 0) choice--;
+				this->reset_menu_choice();
+			}
+			if (this->menu_choice == 'S')
+			{
+				if (choice < 4) choice++;
+				this->reset_menu_choice();
+			}
+			if (this->menu_choice == 13)
+			{
+				this->reset_menu_choice();
+				switch (choice)
+				{
+				case 0:
+					this->main_state = "RUNNING";
+					break;
+				case 1:
+					this->pre_state = "WIN";
+					this->main_state = "SAVING";
+					break;
+				case 2:
+					this->pre_state = "WIN";
+					this->main_state = "LOADING";
+					break;
+				case 3:
+					this->restart();
+					this->main_state = "MAINMENU";
+					break;
+				case 4:
+					this->main_state = "EXIT";
+					break;
+				}
+			}
+		}
+	}
+}
+
+void CGAME::lose_menu()
+{
+	clearScreen();
+	draw_outline();
+	std::string text[4] = { "New game", "Load game", "Main menu", "Exit" };
+
+	int choice = 0;
+
+	draw_banner_5(2, 2);
+
+	while (this->main_state == "LOSE")
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			if (choice == i)
+			{
+				setColor(COLOR_RED);
+				gotoXY(102, 32 + i); std::cout << text[i];
+				setColor(COLOR_WHITE);
+			}
+			else
+			{
+				gotoXY(102, 32 + i); std::cout << text[i];
 			}
 		}
 
@@ -288,12 +366,12 @@ void CGAME::win_menu()
 					this->main_state = "RUNNING";
 					break;
 				case 1:
-					this->pre_state = "WIN";
-					this->main_state = "SAVING";
+					this->pre_state = "LOSE";
+					this->main_state = "LOADING";
 					break;
 				case 2:
-					this->pre_state = "WIN";
-					this->main_state = "LOADING";
+					this->restart();
+					this->main_state = "MAINMENU";
 					break;
 				case 3:
 					this->main_state = "EXIT";
@@ -304,29 +382,40 @@ void CGAME::win_menu()
 	}
 }
 
-void CGAME::lose_menu()
+void CGAME::setting_menu()
 {
 	clearScreen();
 	draw_outline();
-	std::string text[3] = { "New game", "Load game","Exit" };
+	std::string text[4] = { "Setting", "Background music: ON", "Return", "Background music: OFF"};
 
-	int choice = 0;
+	int choice = 1;
+	static bool state[1] = { DEFAULT_BACKGROUND_MUSIC_STATE };
 
-	draw_banner_5(2, 2);
-
-	while (this->main_state == "LOSE")
+	while (this->main_state == "SETTING")
 	{
 		for (int i = 0; i < 3; i++)
 		{
 			if (choice == i)
 			{
 				setColor(COLOR_RED);
-				gotoXY(102, 35 + i); std::cout << text[i];
+				gotoXY(20, 23 + i);
+				if (i == 1)
+				{
+					if (state[i - 1] == 1)std::cout << text[i];
+					else std::cout << text[i + 2];
+				}
+				else std::cout << text[i];
 				setColor(COLOR_WHITE);
 			}
 			else
 			{
-				gotoXY(102, 35 + i); std::cout << text[i];
+				gotoXY(20, 23 + i); 
+				if (i == 1)
+				{
+					if (state[i - 1] == 1)std::cout << text[i];
+					else std::cout << text[i + 2];
+				}
+				else std::cout << text[i];
 			}
 		}
 
@@ -334,7 +423,7 @@ void CGAME::lose_menu()
 		{
 			if (this->menu_choice == 'W')
 			{
-				if (choice > 0) choice--;
+				if (choice > 1) choice--;
 				this->reset_menu_choice();
 			}
 			if (this->menu_choice == 'S')
@@ -347,15 +436,13 @@ void CGAME::lose_menu()
 				this->reset_menu_choice();
 				switch (choice)
 				{
-				case 0:
-					this->main_state = "RUNNING";
-					break;
 				case 1:
-					this->pre_state = "WIN";
-					this->main_state = "LOADING";
+					state[0] = (state[0]) ? 0 : 1;
+					this->background_music = state[0];
+					if (!this->background_music) this->turn_background_music(0);
 					break;
 				case 2:
-					this->main_state = "EXIT";
+					this->main_state = "MAINMENU";
 					break;
 				}
 			}
@@ -365,11 +452,18 @@ void CGAME::lose_menu()
 
 void CGAME::pause()
 {
+	this->turn_background_music(0);
 	draw_game_guide(this->level_label);
 	this->current_level->draw();
 	gotoXY(105, 30); std::cout << "Pausing...";
-}
+	gotoXY(105, 31); std::cout << "[ ESC ]: exit to menu";
 
+	while (this->main_state == "PAUSE")
+	{
+
+	}
+}
+ 
 void CGAME::level_up()
 {
 	delete this->current_level;
@@ -379,7 +473,16 @@ void CGAME::level_up()
 	this->current_level = new CLEVEL(this->level_label);
 }
 
-bool CGAME::yes_no_form(int Xcoor, int Ycoor)
+void CGAME::restart()
+{
+	delete this->current_level;
+
+	this->level_label = 1;
+
+	this->current_level = new CLEVEL(this->level_label);
+}
+
+/*bool CGAME::yes_no_form(int Xcoor, int Ycoor)
 {
 	int choice = 1;
 	while (1)
@@ -420,6 +523,16 @@ bool CGAME::yes_no_form(int Xcoor, int Ycoor)
 		}
 	}
 	return 1;
+}*/
+
+void CGAME::turn_background_music(int index)
+{
+	if(index == 1)
+		PlaySound(TEXT("./sound/Background1.WAV"), NULL, SND_LOOP | SND_ASYNC);
+	else if(index == 2)
+		PlaySound(TEXT("./sound/Background2.WAV"), NULL, SND_LOOP | SND_ASYNC);
+	else
+		PlaySound(NULL, 0, 0);
 }
 
 //--------------------> Getter

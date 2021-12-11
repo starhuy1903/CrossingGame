@@ -20,10 +20,10 @@ void mainloop()
 		if (game.get_main_state() == "LOADING") game.load_menu();
 		if (game.get_main_state() == "LOSE") game.lose_menu();
 		if (game.get_main_state() == "WIN") game.win_menu();
+		if (game.get_main_state() == "SETTING") game.setting_menu();
 
 	}
 }
-
 
 int main()
 {
@@ -34,8 +34,7 @@ int main()
 
 	fixConsoleWindow();
 
-	showConsoleCursor(0);
-	
+	showConsoleCursor(0);	
 
 	std::thread t1(mainloop);
 
@@ -99,6 +98,11 @@ int main()
 				if ((key == 'W') || (key == 'S') || (key == 13)) game.set_menu_choice(key);
 			}
 
+			else if (game.get_main_state() == "SETTING")
+			{
+				if ((key == 'W') || (key == 'S') || (key == 13)) game.set_menu_choice(key);
+			}
+
 			else if (game.get_main_state() == "PAUSE")
 			{
 				if (key == 'P')
@@ -117,8 +121,13 @@ int main()
 				{
 					game.set_pre_state("PAUSE");
 					game.set_main_state("SAVING");
+				}		
+
+				if (key == 27)
+				{
+					game.restart();
+					game.set_main_state("MAINMENU");
 				}
-				
 			}
 		}
 

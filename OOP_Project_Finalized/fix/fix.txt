@@ -4,10 +4,3 @@ Hướng dẫn add library cho visual studio nếu build bị lỗi linker:
 2.Chọn Linker -> Input
 3.Tại mục Additional Dependencies, ghi thêm "winmm.lib;" (nếu chưa có) vào trước %(Addi...) 
 4.Apply -> OK
-
-Nếu vẫn lỗi: 
-5.Nhấp chuột phải vào tên project, chọn Properties
-6.Chọn VC++ Directories
-7.Nhấp vào Library Directory -> Chọn mũi tên ở cuối dòng -> <Edit...>
-8.Copy đường link đến file library của visual studio -> Đi đến đường link
-9.Kiểm tra xem đã có file "WinMM.Lib" hay chưa, add file vào thư mục nếu chưa có

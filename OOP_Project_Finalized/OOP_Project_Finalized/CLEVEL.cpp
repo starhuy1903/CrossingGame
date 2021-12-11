@@ -160,6 +160,7 @@ void CLEVEL::play()
 		if (this->player.get_Ycoor() == FINISH_LINE)
 		{
 			this->state = "WIN";
+			PlaySound(TEXT("./sound/Win.WAV"), NULL, SND_ASYNC);
 			break;
 		}
 	}
