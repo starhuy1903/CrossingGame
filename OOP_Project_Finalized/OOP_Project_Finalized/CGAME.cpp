@@ -177,6 +177,7 @@ void CGAME::save_menu()
 					std::ofstream ofs("./save/" + text[choice] + ".bin", std::ios::binary);
 					this->current_level->save_level(ofs);
 					gotoXY(60, 16 + choice); std::cout << "Saved!";
+					ofs.close();
 				}
 			}
 		}
@@ -249,7 +250,10 @@ void CGAME::load_menu()
 							this->current_level = new CLEVEL(ifs);
 							clearScreen();
 							this->main_state = "PAUSE";
+							this->level_label = this->current_level->get_level_label();
 						}
+
+						ifs.close();
 					}
 					else
 					{

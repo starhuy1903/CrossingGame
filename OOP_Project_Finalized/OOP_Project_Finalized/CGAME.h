@@ -43,7 +43,7 @@ public:
 	//bool yes_no_form(int, int);
 
 	void turn_background_music(int);
-
+	
 private:
 	CGAME();
 	static CGAME* game_;
@@ -55,7 +55,7 @@ private:
 
 	std::string main_state;
 	int level_label;
-	CLEVEL *current_level;
+	CLEVEL* current_level;	
 };
 
 #endif // !_CGAME_H_
