@@ -7,20 +7,20 @@
 
 #include "CGAME.h"
 
-CGAME game;
+CGAME* game = CGAME::getInstance();
 
 void mainloop()
 {
-	while (game.get_main_state() != "EXIT")
+	while (game->get_main_state() != "EXIT")
 	{
-		if (game.get_main_state() == "MAINMENU") game.main_menu();
-		if (game.get_main_state() == "RUNNING") game.gameplay();
-		if (game.get_main_state() == "PAUSE") game.pause();
-		if (game.get_main_state() == "SAVING") game.save_menu();
-		if (game.get_main_state() == "LOADING") game.load_menu();
-		if (game.get_main_state() == "LOSE") game.lose_menu();
-		if (game.get_main_state() == "WIN") game.win_menu();
-		if (game.get_main_state() == "SETTING") game.setting_menu();
+		if (game->get_main_state() == "MAINMENU") game->main_menu();
+		if (game->get_main_state() == "RUNNING") game->gameplay();
+		if (game->get_main_state() == "PAUSE") game->pause();
+		if (game->get_main_state() == "SAVING") game->save_menu();
+		if (game->get_main_state() == "LOADING") game->load_menu();
+		if (game->get_main_state() == "LOSE") game->lose_menu();
+		if (game->get_main_state() == "WIN") game->win_menu();
+		if (game->get_main_state() == "SETTING") game->setting_menu();
 
 	}
 }
@@ -43,95 +43,95 @@ int main()
 		char key = inputKey();
 		if (key != -1)
 		{
-			if (game.get_main_state() == "RUNNING")
+			if (game->get_main_state() == "RUNNING")
 			{
 				if (key == 'P')
 				{
-					if (game.get_game_state() == "RUNNING")
+					if (game->get_game_state() == "RUNNING")
 					{
-						game.set_game_state("PAUSE");
-						game.set_main_state("PAUSE");
+						game->set_game_state("PAUSE");
+						game->set_main_state("PAUSE");
 					}
 				}
 
 				if (key == 'T')
 				{
-					game.set_game_state("PAUSE");
-					game.set_pre_state("PAUSE");
-					game.set_main_state("LOADING");
+					game->set_game_state("PAUSE");
+					game->set_pre_state("PAUSE");
+					game->set_main_state("LOADING");
 				}
 
 				if (key == 'L')
 				{
-					game.set_game_state("PAUSE");
-					game.set_pre_state("PAUSE");
-					game.set_main_state("SAVING");
+					game->set_game_state("PAUSE");
+					game->set_pre_state("PAUSE");
+					game->set_main_state("SAVING");
 				}
 
 				if ((key == 'W') || (key == 'A') || (key == 'S') || (key == 'D'))
 				{
-					if (game.get_game_state() == "RUNNING") game.update_player(key);
+					if (game->get_game_state() == "RUNNING") game->update_player(key);
 				}
 			}
-			else if (game.get_main_state() == "MAINMENU")
+			else if (game->get_main_state() == "MAINMENU")
 			{
-				if ((key == 'W') || (key == 'S') || (key == 13)) game.set_menu_choice(key);
+				if ((key == 'W') || (key == 'S') || (key == 13)) game->set_menu_choice(key);
 			}
 
-			else if (game.get_main_state() == "SAVING")
+			else if (game->get_main_state() == "SAVING")
 			{
-				if ((key == 'W') || (key == 'S') || (key == 13)) game.set_menu_choice(key);
+				if ((key == 'W') || (key == 'S') || (key == 13)) game->set_menu_choice(key);
 			}
 
-			else if (game.get_main_state() == "LOADING")
+			else if (game->get_main_state() == "LOADING")
 			{
-				if ((key == 'W') || (key == 'S') || (key == 13)) game.set_menu_choice(key);
+				if ((key == 'W') || (key == 'S') || (key == 13)) game->set_menu_choice(key);
 			}
 
-			else if (game.get_main_state() == "WIN")
+			else if (game->get_main_state() == "WIN")
 			{
-				if ((key == 'W') || (key == 'S') || (key == 13)) game.set_menu_choice(key);
+				if ((key == 'W') || (key == 'S') || (key == 13)) game->set_menu_choice(key);
 			}
 
-			else if (game.get_main_state() == "LOSE")
+			else if (game->get_main_state() == "LOSE")
 			{
-				if ((key == 'W') || (key == 'S') || (key == 13)) game.set_menu_choice(key);
+				if ((key == 'W') || (key == 'S') || (key == 13)) game->set_menu_choice(key);
 			}
 
-			else if (game.get_main_state() == "SETTING")
+			else if (game->get_main_state() == "SETTING")
 			{
-				if ((key == 'W') || (key == 'S') || (key == 13)) game.set_menu_choice(key);
+				if ((key == 'W') || (key == 'S') || (key == 13)) game->set_menu_choice(key);
 			}
 
-			else if (game.get_main_state() == "PAUSE")
+			else if (game->get_main_state() == "PAUSE")
 			{
 				if (key == 'P')
 				{
-					game.set_main_state("RUNNING");
-					game.set_game_state("RUNNING");
+					game->set_main_state("RUNNING");
+					game->set_game_state("RUNNING");
 				}
 
 				if (key == 'T')
 				{
-					game.set_pre_state("PAUSE");
-					game.set_main_state("LOADING");
+					game->set_pre_state("PAUSE");
+					game->set_main_state("LOADING");
 				}
 
 				if (key == 'L')
 				{
-					game.set_pre_state("PAUSE");
-					game.set_main_state("SAVING");
+					game->set_pre_state("PAUSE");
+					game->set_main_state("SAVING");
 				}		
 
 				if (key == 27)
 				{
-					game.restart();
-					game.set_main_state("MAINMENU");
+					game->restart();
+					game->set_main_state("MAINMENU");
 				}
 			}
 		}
 
-		if (game.get_main_state() == "EXIT") break;
+		if (game->get_main_state() == "EXIT") break;
 	}
 
 

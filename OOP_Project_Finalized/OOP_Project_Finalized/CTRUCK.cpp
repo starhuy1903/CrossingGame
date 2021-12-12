@@ -64,7 +64,7 @@ CTRUCK::CTRUCK(int Xcoor, int Ycoor, bool direction /* 0 for left, 1 for right*/
 	}
 }
 
-int CTRUCK::get_type()
+VehicleType CTRUCK::get_type()
 {
 	return VEHICLE_TYPE_TRUCK;
 }

@@ -63,7 +63,7 @@ CBIRD::CBIRD(int Xcoor, int Ycoor, bool direction /* 0 for left, 1 for right*/)
 	this->shape[2][5] = 32;
 }
 
-int CBIRD::get_type()
+AnimalType CBIRD::get_type()
 {
 	return ANIMAL_TYPE_BIRD;
 }

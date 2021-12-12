@@ -3,6 +3,16 @@
 #include <Windows.h>
 
 //--------------------> Constructor 
+CGAME* CGAME::game_ = NULL;
+
+CGAME* CGAME::getInstance()
+{
+	if (game_ == NULL)
+	{
+		game_ = new CGAME;
+	}
+	return game_;
+}
 
 CGAME::CGAME()
 {

@@ -5,8 +5,10 @@
 
 #define VEHICLE_HEIGHT 3
 #define VEHICLE_WIDTH 8
-#define VEHICLE_TYPE_CAR 2000
-#define VEHICLE_TYPE_TRUCK 2001
+
+enum VehicleType {
+	VEHICLE_TYPE_CAR = 2000, VEHICLE_TYPE_TRUCK = 2001
+};
 
 class CVEHICLE
 {
@@ -19,7 +21,7 @@ public:
 	void move(int, int);
 	virtual void sound() = 0;
 
-	virtual int get_type() = 0;
+	virtual VehicleType get_type() = 0;
 
 	bool just_move();	
 

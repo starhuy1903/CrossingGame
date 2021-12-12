@@ -8,7 +8,9 @@
 class CGAME
 {
 public:
-	CGAME();
+	CGAME(CGAME& other) = delete;
+	void operator=(const CGAME&) = delete;
+	static CGAME* getInstance();
 
 	~CGAME();
 
@@ -43,6 +45,9 @@ public:
 	void turn_background_music(int);
 
 private:
+	CGAME();
+	static CGAME* game_;
+
 	char menu_choice;
 	std::string pre_state;
 

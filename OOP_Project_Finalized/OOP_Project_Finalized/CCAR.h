@@ -8,7 +8,7 @@ class CCAR :public CVEHICLE
 public:
 	CCAR(int, int, bool);
 
-	int get_type();
+	VehicleType get_type();
 	void sound();
 };
 
