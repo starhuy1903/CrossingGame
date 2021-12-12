@@ -1,0 +1,34 @@
+﻿  AnimalFactory.cpp
+  CANIMAL.cpp
+  CANIMALROW.cpp
+  CBIRD.cpp
+  CDINAUSOR.cpp
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(29,23): warning C4309: '=': truncation of constant value
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(30,23): warning C4309: '=': truncation of constant value
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(33,23): warning C4309: '=': truncation of constant value
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(34,23): warning C4309: '=': truncation of constant value
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(35,23): warning C4309: '=': truncation of constant value
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(36,23): warning C4309: '=': truncation of constant value
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(37,23): warning C4309: '=': truncation of constant value
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(38,23): warning C4309: '=': truncation of constant value
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(51,23): warning C4309: '=': truncation of constant value
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(52,23): warning C4309: '=': truncation of constant value
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(59,23): warning C4309: '=': truncation of constant value
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(60,23): warning C4309: '=': truncation of constant value
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(61,23): warning C4309: '=': truncation of constant value
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(62,23): warning C4309: '=': truncation of constant value
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(63,23): warning C4309: '=': truncation of constant value
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\CDINAUSOR.cpp(64,23): warning C4309: '=': truncation of constant value
+  CGAME.cpp
+  CLEVEL.cpp
+  main.cpp
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\main.cpp(30,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
+F:\Download\CrossingGame\OOP_Project_Finalized\OOP_Project_Finalized\AnimalFactory.h(24): warning C4715: 'AnimalFactory::getAnimal': not all control paths return a value
+CLEVEL.obj : error LNK2001: unresolved external symbol __imp_PlaySoundW
+CTRUCK.obj : error LNK2001: unresolved external symbol __imp_PlaySoundW
+CBIRD.obj : error LNK2001: unresolved external symbol __imp_PlaySoundW
+CCAR.obj : error LNK2001: unresolved external symbol __imp_PlaySoundW
+CDINAUSOR.obj : error LNK2001: unresolved external symbol __imp_PlaySoundW
+CGAME.obj : error LNK2001: unresolved external symbol __imp_PlaySoundW
+F:\Download\CrossingGame\OOP_Project_Finalized\x64\Debug\OOP_Project_Finalized.exe : fatal error LNK1120: 1 unresolved externals

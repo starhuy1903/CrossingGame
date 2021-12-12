@@ -8,7 +8,7 @@ class CBIRD : public CANIMAL
 public:
 	CBIRD(int, int, bool);
 
-	int get_type();
+	AnimalType get_type();
 	void sound();
 };
 

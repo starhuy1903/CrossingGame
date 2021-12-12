@@ -15,19 +15,21 @@ CANIMALROW::CANIMALROW(int Ycoor, bool direction, int distance, int delay, int c
 	this->enemyNumber = count;
 	this->animalList = new CANIMAL * [count];
 	this->enemyState = new bool[count];
+	// pattern
 	for (int i = 0; i < count; i++)
 	{
 		if (rand() % 2 == 0)
 		{
-			this->animalList[i] = new CDINAUSOR((direction)? ANIMAL_LEFT_STARTING_XCOOR:ANIMAL_RIGHT_STARTING_XCOOR,Ycoor,direction);
+			this->animalList[i] = animalFactory.getAnimal(ANIMAL_TYPE_BIRD, (direction) ? ANIMAL_LEFT_STARTING_XCOOR : ANIMAL_RIGHT_STARTING_XCOOR, Ycoor, direction);
 		}
 		else
 		{
-			this->animalList[i] = new CBIRD((direction) ? ANIMAL_LEFT_STARTING_XCOOR : ANIMAL_RIGHT_STARTING_XCOOR, Ycoor, direction);
+			this->animalList[i] = animalFactory.getAnimal(ANIMAL_TYPE_DINAUSOR, (direction) ? ANIMAL_LEFT_STARTING_XCOOR : ANIMAL_RIGHT_STARTING_XCOOR, Ycoor, direction);
 		}
 		this->enemyState[i] = 0;
 
 	}
+	// pattern
 }
 
 CANIMALROW::CANIMALROW(int ycoor, std::ifstream& ifs)
@@ -49,8 +51,20 @@ CANIMALROW::CANIMALROW(int ycoor, std::ifstream& ifs)
 
 	for (int i = 0; i < this->enemyNumber; i++)
 	{
-		int enemy_type;
-		ifs.read(reinterpret_cast<char*>(&enemy_type), sizeof(int));
+		int int_temp;
+		AnimalType enemy_type;
+		ifs.read(reinterpret_cast<char*>(&int_temp), sizeof(int));
+		switch (int_temp)
+		{
+		case ANIMAL_TYPE_BIRD:
+			enemy_type = ANIMAL_TYPE_BIRD;
+			break;
+		case ANIMAL_TYPE_DINAUSOR:
+			enemy_type = ANIMAL_TYPE_DINAUSOR;
+			break;
+		default:
+			break;
+		}
 		
 		int enemyXcoor, enemyYcoor;
 		ifs.read(reinterpret_cast<char*>(&enemyXcoor), sizeof(int));
@@ -58,8 +72,10 @@ CANIMALROW::CANIMALROW(int ycoor, std::ifstream& ifs)
 
 		ifs.read(reinterpret_cast<char*>(&this->enemyState[i]), sizeof(bool));
 
-		if (enemy_type == ANIMAL_TYPE_BIRD) this->animalList[i] = new CBIRD(enemyXcoor, enemyYcoor, this->direction);
-		else if (enemy_type == ANIMAL_TYPE_DINAUSOR) this->animalList[i] = new CDINAUSOR(enemyXcoor, enemyYcoor, this->direction);
+		this->animalList[i] = animalFactory.getAnimal(enemy_type, enemyXcoor, enemyYcoor, this->direction);
+
+		/*if (enemy_type == ANIMAL_TYPE_BIRD)  = new CBIRD(enemyXcoor, enemyYcoor, this->direction);
+		else if (enemy_type == ANIMAL_TYPE_DINAUSOR) this->animalList[i] = new CDINAUSOR(enemyXcoor, enemyYcoor, this->direction);*/
 
 	}
 }
@@ -209,7 +225,7 @@ void CANIMALROW::save_row(std::ofstream& ofs)
 
 	for (int i = 0; i < this->enemyNumber; i++)
 	{
-		int enemy_type = this->animalList[i]->get_type();
+		AnimalType enemy_type = this->animalList[i]->get_type();
 		ofs.write(reinterpret_cast<char*>(&enemy_type), sizeof(int));
 
 		int enemyXcoor = this->animalList[i]->get_Xcoor();
