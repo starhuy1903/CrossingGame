@@ -396,7 +396,7 @@ void CGAME::setting_menu()
 {
 	clearScreen();
 	draw_outline();
-	std::string text[4] = { "Setting", "Background music: ON", "Return", "Background music: OFF"};
+	std::string text[4] = { "Setting", "Background music: ON ", "Return", "Background music: OFF"};
 
 	int choice = 1;
 	static bool state[1] = { DEFAULT_BACKGROUND_MUSIC_STATE };

@@ -30,7 +30,7 @@ int main()
 	srand(time(0));
 	resizeWindow(1200, 700);
 
-	setWindowPosition(100, 100);
+	setWindowPosition(10, 10);
 
 	fixConsoleWindow();
 
