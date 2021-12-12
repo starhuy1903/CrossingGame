@@ -5,6 +5,8 @@
 #include "CCAR.h"
 #include "CTRUCK.h"
 
+#include "VehicleFactory.h"
+
 #define VEHICLE_LEFT_STARTING_XCOOR (SCREEN_LEFT_BORDER - VEHICLE_WIDTH)
 #define VEHICLE_RIGHT_STARTING_XCOOR (SCREEN_RIGHT_BORDER + 1)
 #define MAX_RED_LIGHT_DELAY 150
@@ -43,6 +45,8 @@ private:
 
 	int trafficCountDown;
 	bool trafficLight; // 1 for green, 0 for red
+
+	VehicleFactory vehicleFactory;
 
 };
 

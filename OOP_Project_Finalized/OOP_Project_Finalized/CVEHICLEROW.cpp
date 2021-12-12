@@ -19,14 +19,12 @@ CVEHICLEROW::CVEHICLEROW(int Ycoor, bool direction, int distance, int delay, int
 	this->enemyState = new bool[count];
 	for (int i = 0; i < count; i++)
 	{
-		if (rand() % 2 == 0)
+		VehicleType type = VEHICLE_TYPE_TRUCK; // default
+		if (rand() % 2 == 1)
 		{
-			this->vehicleList[i] = new CTRUCK((direction) ? VEHICLE_LEFT_STARTING_XCOOR : VEHICLE_RIGHT_STARTING_XCOOR, Ycoor, direction);
+			type = VEHICLE_TYPE_CAR;
 		}
-		else
-		{
-			this->vehicleList[i] = new CCAR((direction) ? VEHICLE_LEFT_STARTING_XCOOR : VEHICLE_RIGHT_STARTING_XCOOR, Ycoor, direction);
-		}
+		this->vehicleList[i] = vehicleFactory.getVehicle(type, (direction) ? VEHICLE_LEFT_STARTING_XCOOR : VEHICLE_RIGHT_STARTING_XCOOR, Ycoor, direction);
 		this->enemyState[i] = 0;
 	}
 
@@ -53,8 +51,21 @@ CVEHICLEROW::CVEHICLEROW(int ycoor, std::ifstream& ifs)
 
 	for (int i = 0; i < this->enemyNumber; i++)
 	{
-		int enemy_type;
-		ifs.read(reinterpret_cast<char*>(&enemy_type), sizeof(int));
+		VehicleType enemy_type;
+		int int_temp;
+		ifs.read(reinterpret_cast<char*>(&int_temp), sizeof(int));
+		switch (int_temp)
+		{
+		case VEHICLE_TYPE_TRUCK:
+			enemy_type = VEHICLE_TYPE_TRUCK;
+			break;
+		case VEHICLE_TYPE_CAR:
+			enemy_type = VEHICLE_TYPE_CAR;
+			break;
+
+		default:
+			break;
+		}
 
 		int enemyXcoor, enemyYcoor;
 		ifs.read(reinterpret_cast<char*>(&enemyXcoor), sizeof(int));
@@ -62,8 +73,8 @@ CVEHICLEROW::CVEHICLEROW(int ycoor, std::ifstream& ifs)
 
 		ifs.read(reinterpret_cast<char*>(&this->enemyState[i]), sizeof(bool));
 
-		if (enemy_type == VEHICLE_TYPE_CAR) this->vehicleList[i] = new CCAR(enemyXcoor, enemyYcoor, this->direction);
-		else if (enemy_type == VEHICLE_TYPE_TRUCK) this->vehicleList[i] = new CTRUCK(enemyXcoor, enemyYcoor, this->direction);
+		this->vehicleList[i] = vehicleFactory.getVehicle(enemy_type, enemyXcoor, enemyYcoor, this->direction);
+
 	}
 
 	ifs.read(reinterpret_cast<char*>(&this->trafficLight), sizeof(bool));
@@ -218,7 +229,7 @@ void CVEHICLEROW::save_row(std::ofstream& ofs)
 
 	for (int i = 0; i < this->enemyNumber; i++)
 	{
-		int enemy_type = this->vehicleList[i]->get_type();
+		VehicleType enemy_type = this->vehicleList[i]->get_type();
 		ofs.write(reinterpret_cast<char*>(&enemy_type), sizeof(int));
 
 		int enemyXcoor = this->vehicleList[i]->get_Xcoor();

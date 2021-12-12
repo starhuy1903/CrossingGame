@@ -15,21 +15,20 @@ CANIMALROW::CANIMALROW(int Ycoor, bool direction, int distance, int delay, int c
 	this->enemyNumber = count;
 	this->animalList = new CANIMAL * [count];
 	this->enemyState = new bool[count];
-	// pattern
+	
 	for (int i = 0; i < count; i++)
 	{
-		if (rand() % 2 == 0)
+		AnimalType type = ANIMAL_TYPE_BIRD; // default
+		 
+		if (rand() % 2 == 1)
 		{
-			this->animalList[i] = animalFactory.getAnimal(ANIMAL_TYPE_BIRD, (direction) ? ANIMAL_LEFT_STARTING_XCOOR : ANIMAL_RIGHT_STARTING_XCOOR, Ycoor, direction);
+			type = ANIMAL_TYPE_DINAUSOR;
 		}
-		else
-		{
-			this->animalList[i] = animalFactory.getAnimal(ANIMAL_TYPE_DINAUSOR, (direction) ? ANIMAL_LEFT_STARTING_XCOOR : ANIMAL_RIGHT_STARTING_XCOOR, Ycoor, direction);
-		}
+		this->animalList[i] = animalFactory.getAnimal(type, (direction) ? ANIMAL_LEFT_STARTING_XCOOR : ANIMAL_RIGHT_STARTING_XCOOR, Ycoor, direction);		
 		this->enemyState[i] = 0;
 
 	}
-	// pattern
+	
 }
 
 CANIMALROW::CANIMALROW(int ycoor, std::ifstream& ifs)
@@ -52,7 +51,7 @@ CANIMALROW::CANIMALROW(int ycoor, std::ifstream& ifs)
 	for (int i = 0; i < this->enemyNumber; i++)
 	{
 		int int_temp;
-		AnimalType enemy_type;
+		AnimalType enemy_type = ANIMAL_TYPE_BIRD;
 		ifs.read(reinterpret_cast<char*>(&int_temp), sizeof(int));
 		switch (int_temp)
 		{
@@ -63,6 +62,7 @@ CANIMALROW::CANIMALROW(int ycoor, std::ifstream& ifs)
 			enemy_type = ANIMAL_TYPE_DINAUSOR;
 			break;
 		default:
+			enemy_type = ANIMAL_TYPE_BIRD;
 			break;
 		}
 		
@@ -73,9 +73,6 @@ CANIMALROW::CANIMALROW(int ycoor, std::ifstream& ifs)
 		ifs.read(reinterpret_cast<char*>(&this->enemyState[i]), sizeof(bool));
 
 		this->animalList[i] = animalFactory.getAnimal(enemy_type, enemyXcoor, enemyYcoor, this->direction);
-
-		/*if (enemy_type == ANIMAL_TYPE_BIRD)  = new CBIRD(enemyXcoor, enemyYcoor, this->direction);
-		else if (enemy_type == ANIMAL_TYPE_DINAUSOR) this->animalList[i] = new CDINAUSOR(enemyXcoor, enemyYcoor, this->direction);*/
 
 	}
 }
@@ -103,8 +100,7 @@ int CANIMALROW::get_type()
 
 void CANIMALROW::spawn()
 {
-	if((this->spawnable()) && (rand() % 5 == 0))
-	//if(this->spawnable())
+	if((this->spawnable()) && (rand() % 5 == 0))	
 	{
 		for (int i = 0; i < this->enemyNumber; i++)
 		{
@@ -242,9 +238,7 @@ void CANIMALROW::draw()
 {
 	for (int i = 0; i < this->enemyNumber; i++)
 	{
-		if (this->enemyState[i])
-		{
-			this->animalList[i]->draw();
-		}
+		if (this->enemyState[i])		
+			this->animalList[i]->draw();	
 	}
 }
