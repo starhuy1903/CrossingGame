@@ -8,7 +8,7 @@ class CTRUCK :public CVEHICLE
 public:
 	CTRUCK(int, int, bool);
 
-	int get_type();
+	VehicleType get_type();
 	void sound();
 };
 

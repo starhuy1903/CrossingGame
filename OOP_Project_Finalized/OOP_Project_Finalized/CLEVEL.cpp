@@ -6,7 +6,7 @@
 CLEVEL::CLEVEL(std::ifstream& ifs)
 {
 	this->state = "PAUSE";
-	ifs.read(reinterpret_cast<char*>(&this->level_label), sizeof(int));
+	ifs.read(reinterpret_cast<char*>(&this->level_label), sizeof(unsigned int));
 
 	// player
 	int playerXcoor, playerYcoor;
@@ -125,6 +125,11 @@ void CLEVEL::player_movement(char move)
 std::string CLEVEL::get_state()
 {
 	return this->state;
+}
+
+int CLEVEL::get_level_label()
+{
+	return this->level_label;
 }
 
 //--------------------> Play

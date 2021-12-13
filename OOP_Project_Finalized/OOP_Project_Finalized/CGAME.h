@@ -8,7 +8,9 @@
 class CGAME
 {
 public:
-	CGAME();
+	CGAME(CGAME& other) = delete;
+	void operator=(const CGAME&) = delete;
+	static CGAME* getInstance();
 
 	~CGAME();
 
@@ -41,8 +43,11 @@ public:
 	//bool yes_no_form(int, int);
 
 	void turn_background_music(int);
-
+	
 private:
+	CGAME();
+	static CGAME* game_;
+
 	char menu_choice;
 	std::string pre_state;
 
@@ -50,7 +55,7 @@ private:
 
 	std::string main_state;
 	int level_label;
-	CLEVEL *current_level;
+	CLEVEL* current_level;	
 };
 
 #endif // !_CGAME_H_

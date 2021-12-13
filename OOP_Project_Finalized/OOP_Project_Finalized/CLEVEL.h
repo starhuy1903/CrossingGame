@@ -26,6 +26,7 @@ public:
 	void change_state(std::string);
 
 	std::string get_state();
+	int get_level_label();
 
 	void player_movement(char);
 

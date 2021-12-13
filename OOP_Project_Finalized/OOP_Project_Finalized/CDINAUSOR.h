@@ -8,7 +8,7 @@ class CDINAUSOR :public CANIMAL
 public:
 	CDINAUSOR(int, int, bool);
 
-	int get_type();
+	AnimalType get_type();
 	void sound();
 };
 

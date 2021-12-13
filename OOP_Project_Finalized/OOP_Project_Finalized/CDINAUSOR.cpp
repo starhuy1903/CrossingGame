@@ -73,7 +73,7 @@ CDINAUSOR::CDINAUSOR(int Xcoor, int Ycoor, bool direction /* 0 for left, 1 for r
 	}
 }
 
-int CDINAUSOR::get_type()
+AnimalType CDINAUSOR::get_type()
 {
 	return ANIMAL_TYPE_DINAUSOR;
 }

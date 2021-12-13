@@ -5,12 +5,16 @@
 
 #define ANIMAL_HEIGHT 3
 #define ANIMAL_WIDTH 6
-#define ANIMAL_TYPE_BIRD 1000
-#define ANIMAL_TYPE_DINAUSOR 1001
 
+enum AnimalType {
+	ANIMAL_TYPE_BIRD = 1000, ANIMAL_TYPE_DINAUSOR = 1001
+};
+
+// abstract class, prototype, factory, MVC, singleton
 class CANIMAL
 {
 public:
+
 	~CANIMAL();
 
 	int get_Xcoor();
@@ -19,7 +23,7 @@ public:
 	void move(int, int);
 	virtual void sound() = 0;
 
-	virtual int get_type() = 0;
+	virtual AnimalType get_type() = 0;
 
 	bool just_move();
 

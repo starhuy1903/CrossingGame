@@ -3,6 +3,16 @@
 #include <Windows.h>
 
 //--------------------> Constructor 
+CGAME* CGAME::game_ = NULL;
+
+CGAME* CGAME::getInstance()
+{
+	if (game_ == NULL)
+	{
+		game_ = new CGAME;
+	}
+	return game_;
+}
 
 CGAME::CGAME()
 {
@@ -167,6 +177,7 @@ void CGAME::save_menu()
 					std::ofstream ofs("./save/" + text[choice] + ".bin", std::ios::binary);
 					this->current_level->save_level(ofs);
 					gotoXY(60, 16 + choice); std::cout << "Saved!";
+					ofs.close();
 				}
 			}
 		}
@@ -239,7 +250,10 @@ void CGAME::load_menu()
 							this->current_level = new CLEVEL(ifs);
 							clearScreen();
 							this->main_state = "PAUSE";
+							this->level_label = this->current_level->get_level_label();
 						}
+
+						ifs.close();
 					}
 					else
 					{
@@ -386,7 +400,7 @@ void CGAME::setting_menu()
 {
 	clearScreen();
 	draw_outline();
-	std::string text[4] = { "Setting", "Background music: ON", "Return", "Background music: OFF"};
+	std::string text[4] = { "Setting", "Background music: ON ", "Return", "Background music: OFF"};
 
 	int choice = 1;
 	static bool state[1] = { DEFAULT_BACKGROUND_MUSIC_STATE };

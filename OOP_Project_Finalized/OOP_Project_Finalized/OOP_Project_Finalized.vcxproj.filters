@@ -101,5 +101,11 @@
     <ClInclude Include="Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AnimalFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VehicleFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

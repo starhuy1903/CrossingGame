@@ -63,7 +63,7 @@ CCAR::CCAR(int Xcoor, int Ycoor, bool direction /* 0 for left, 1 for right*/)
 	}
 }
 
-int CCAR::get_type()
+VehicleType CCAR::get_type()
 {
 	return VEHICLE_TYPE_CAR;
 }

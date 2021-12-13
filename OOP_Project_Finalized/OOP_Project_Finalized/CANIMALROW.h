@@ -4,12 +4,16 @@
 #include "CROW.h"
 #include "CDINAUSOR.h"
 #include "CBIRD.h"
+#include "AnimalFactory.h"
 
 #define ANIMAL_LEFT_STARTING_XCOOR (SCREEN_LEFT_BORDER - ANIMAL_WIDTH)
 #define ANIMAL_RIGHT_STARTING_XCOOR (SCREEN_RIGHT_BORDER + 1)
 
 class CANIMALROW: public CROW
 {
+private:
+	AnimalFactory animalFactory;
+
 public:
 	CANIMALROW(int, bool, int, int, int);
 	CANIMALROW(int, std::ifstream&);
